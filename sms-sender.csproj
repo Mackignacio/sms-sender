@@ -33,17 +33,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="GSMCommServer">
-      <HintPath>..\sms-gateway\smsgateway\GSMCommServer.dll</HintPath>
+    <Reference Include="GSMCommServer, Version=1.11.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\GSMCommServer.dll</HintPath>
     </Reference>
-    <Reference Include="GSMCommShared">
-      <HintPath>..\sms-gateway\smsgateway\GSMCommShared.dll</HintPath>
+    <Reference Include="GSMCommShared, Version=1.11.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\GSMCommShared.dll</HintPath>
     </Reference>
-    <Reference Include="GSMCommunication">
-      <HintPath>..\sms-gateway\smsgateway\GSMCommunication.dll</HintPath>
+    <Reference Include="GSMCommunication, Version=1.11.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\GSMCommunication.dll</HintPath>
     </Reference>
-    <Reference Include="PDUConverter">
-      <HintPath>..\sms-gateway\smsgateway\PDUConverter.dll</HintPath>
+    <Reference Include="PDUConverter, Version=1.11.0.0, Culture=neutral, PublicKeyToken=515d87df384dcc81, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>lib\PDUConverter.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
