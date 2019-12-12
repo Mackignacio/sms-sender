@@ -33,6 +33,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="GSMCommServer">
+      <HintPath>..\sms-gateway\smsgateway\GSMCommServer.dll</HintPath>
+    </Reference>
+    <Reference Include="GSMCommShared">
+      <HintPath>..\sms-gateway\smsgateway\GSMCommShared.dll</HintPath>
+    </Reference>
+    <Reference Include="GSMCommunication">
+      <HintPath>..\sms-gateway\smsgateway\GSMCommunication.dll</HintPath>
+    </Reference>
+    <Reference Include="PDUConverter">
+      <HintPath>..\sms-gateway\smsgateway\PDUConverter.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
