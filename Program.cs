@@ -2,41 +2,44 @@
 using GsmComm.PduConverter;
 using GsmComm.GsmCommunication;
 using System.IO.Ports;
+using System.Linq;
 
 namespace sms_sender
 {
     class Program
     {
         public static GsmCommMain comm;
-        public static int smscount = 0;
-        public static int smssent = 0;
+        public static int smsCount = 0;
+        public static int smsSent = 0;
         private static string message;
-        private static string phonenum;
+        private static string[] phoneNumbers;
         private static int failcount = 0;
 
         static void Main(string[] args)
         {
             message = args[1];
-            phonenum = args[0];
-
+            phoneNumbers = args[0].Split(new string[] { "," }, StringSplitOptions.RemoveEmptyEntries);
+            smsCount = phoneNumbers.Count();
             execute();
         }
 
         private static void execute()
         {
             if (!autoconnect()) Environment.Exit(0);
-            sendMessage();
+            sendMessage(phoneNumbers[smsSent]);
         }
 
-        private static void sendMessage()
+        private static void sendMessage(string phoneNumber)
         {
+            Console.WriteLine("Sending message to " + phoneNumbers[smsSent]);
             SmsSubmitPdu pdu;
             try
             {
-                pdu = new SmsSubmitPdu(message, phonenum);
+                pdu = new SmsSubmitPdu(message, phoneNumber);
                 if (!comm.IsOpen() || !comm.IsConnected())
                     comm.Open();
                 comm.SendMessage(pdu, true);
+                smsSent++;
             }
             catch (Exception e)
             {
@@ -97,31 +100,29 @@ namespace sms_sender
         private static void Comm_MessageSendFailed(object sender, MessageErrorEventArgs e)
         {
             failcount++;
-            Console.WriteLine("Message send fialed [" + failcount + "]:" + phonenum);
-            if (smssent < (smscount - 1))
+            Console.WriteLine("Message send fialed :" + phoneNumbers[smsSent]);
+            if (smsSent < smsCount)
             {
-                smssent++;
-                sendMessage();
+                sendMessage(phoneNumbers[smsSent]);
             }
             else
             {
-                Console.WriteLine(((smssent + 1) - failcount) + " Total Messages successfully sent");
+                Console.WriteLine(((smsSent + 1) - failcount) + " Total Messages successfully sent");
                 Environment.Exit(0);
             }
         }
 
         private static void Comm_MessageSendComplete(object sender, MessageEventArgs e)
         {
-            Console.WriteLine("Message sent: " + phonenum);
-
-            if (smssent < (smscount - 1))
+            if (smsSent < smsCount)
             {
-                smssent++;
-                sendMessage();
+                Console.WriteLine("Message sent to " + phoneNumbers[smsSent]);
+                smsSent++;
+                sendMessage(phoneNumbers[smsSent]);
             }
             else
             {
-                Console.WriteLine(((smssent + 1) - failcount) + " Total Messages successfully sent");
+                Console.WriteLine(((smsSent + 1) - failcount) + " Total Messages successfully sent");
                 failcount = 0;
                 Environment.Exit(0);
             }
