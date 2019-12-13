@@ -31,7 +31,7 @@ namespace sms_sender
 
         private static void sendMessage(string phoneNumber)
         {
-            Console.WriteLine("Sending message to " + phoneNumbers[smsSent]);
+            Console.WriteLine("Sending message to " + phoneNumber);
             SmsSubmitPdu pdu;
             try
             {
@@ -39,7 +39,6 @@ namespace sms_sender
                 if (!comm.IsOpen() || !comm.IsConnected())
                     comm.Open();
                 comm.SendMessage(pdu, true);
-                smsSent++;
             }
             catch (Exception e)
             {
@@ -101,8 +100,9 @@ namespace sms_sender
         {
             failcount++;
             Console.WriteLine("Message send fialed :" + phoneNumbers[smsSent]);
-            if (smsSent < smsCount)
+            if (smsSent < (smsCount - 1))
             {
+                smsSent++;
                 sendMessage(phoneNumbers[smsSent]);
             }
             else
@@ -114,9 +114,9 @@ namespace sms_sender
 
         private static void Comm_MessageSendComplete(object sender, MessageEventArgs e)
         {
-            if (smsSent < smsCount)
+            Console.WriteLine("Message sent to " + phoneNumbers[smsSent]);
+            if (smsSent < (smsCount - 1))
             {
-                Console.WriteLine("Message sent to " + phoneNumbers[smsSent]);
                 smsSent++;
                 sendMessage(phoneNumbers[smsSent]);
             }
